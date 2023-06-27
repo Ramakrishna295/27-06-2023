@@ -138,12 +138,12 @@
                     </div>
                     <hr>
                     <div class="form-group">
-                        <label for="pastdue">Past due penalty:</label>
-                        <input type="number" class="form-control" id="pastdue" name="pastdue" th:value="${account.getPastDue()}" readonly>
+                        <label for="pastdue">Past due:</label>
+                        <input type="number" class="form-control" id="pastdue" name="pastdue" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="totalwithpenalty">This month Total with past penalty:</label>
-                        <input type="number" class="form-control" id="totalwithpenalty" name="totalwithpenalty" th:value="${account.getTotalWithPenalty()}" readonly>
+                        <label for="totalwithpenalty">This month Total with pastdue:</label>
+                        <input type="number" class="form-control" id="totalwithpenalty" name="totalwithpenalty"  readonly>
                     </div><hr>
                      <div class="form-group">
                         <label for="amount">Amount:</label>
