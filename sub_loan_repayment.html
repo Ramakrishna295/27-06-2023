@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+
+    <title>Loan Repayment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding-bottom : 0;
+        }
+
+        .form-container1 {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            padding-botttom : 100px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .tat {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            background-color: #003366;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #successMessage {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #003366;
+            display: none;
+        }
+
+
+    </style>
+</head>
+<body>
+<body>
+    <div id="loan-repayment-form" class="form-container1">
+        
+            <div >
+                <from>
+                    <div class="form-group">
+                        <label for="loanid">Loan ID:</label>
+                        <input type="number" class="form-control" id="loanid" name="loanid" th:value="${account.getLoanId()}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="accountHolder">Account Holder:</label>
+                        <input type="text" class="form-control" id="accountHolder" name="accountHolder" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="loanType">Loan Type:</label>
+                        <input type="text" class="form-control" id="loanType" name="loanType" th:value="${account.getLoanType()}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date:</label>
+                        <input type="date" class="form-control" id="date" name="date">
+                    </div>
+                    <div class="form-group">
+                        <label for="loanamount">Loan Amount(principle):</label>
+                        <input type="number" class="form-control" id="loanamount" name="loanamount" th:value="${account.getLoanamount()}" readonly>
+                    </div>
+                      <div class="form-group">
+                        <label for="tenure">Loan tenure(in years):</label>
+                        <input type="number" class="form-control" id="tenure" name="tenure" th:value="${account.getLoanduration()}" readonly>
+                    </div>
+                
+                     <div class="form-group">
+                        <label for="NOI">Total No of Installments:</label>
+                        <input type="number" class="form-control" id="NOI" name="NOI" th:value="${account.getNOI()}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="interestrate">Interest Rate(per annum):</label>
+                        <input type="number" class="form-control" id="interestrate" name="interestrate" th:value="${account.getInterestRate()}" readonly>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="loan_pending">Pending Loan Amount:</label>
+                        <input type="number" class="form-control" id="loan_pending" name="loan_pending" th:value="${account.getLoan_pending()}" readonly>
+                    </div>
+                    
+                       <div class="form-group">
+                        <label for="remainMonths">No of Installments Paid:</label>
+                        <input type="number" class="form-control" id="remainMonths" name="remainMonths" th:value="${account.getPaidMonths()}" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="emi">This month share:</label>
+                        <input type="number" class="form-control" id="emi" name="emi" th:value="${account.getEmi()}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="interest">Interest:</label>
+                        <input type="number" class="form-control" id="interest" name="interest" th:value="${account.getInterest()}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="total">This month Total to be paid:</label>
+                        <input type="number" class="form-control" id="total" name="total" th:value="${account.getTotal()}" readonly>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="complete">Complete loan to be paid:</label>
+                        <input type="number" class="form-control" id="complete" name="complete" th:value="${account. getComplete()}" readonly>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="pastdue">Past due penalty:</label>
+                        <input type="number" class="form-control" id="pastdue" name="pastdue" th:value="${account.getPastDue()}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="totalwithpenalty">This month Total with past penalty:</label>
+                        <input type="number" class="form-control" id="totalwithpenalty" name="totalwithpenalty" th:value="${account.getTotalWithPenalty()}" readonly>
+                    </div><hr>
+                     <div class="form-group">
+                        <label for="amount">Amount:</label>
+                        <input type="number" class="form-control" id="amount" name="amount" required>
+                    </div>
+                    <button type="submit" class="tat" onclick="deposit_money()">Pay</button>
+                   <div id="successMessage"></div>
+                    
+                </from>
+            </div>
+        
+    </div>
+</body>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+/* 
+  let date = document.getElementById("date");
+  var currentDate = new Date();
+  var options = { year: 'numeric', month: 'long', day: 'numeric' };
+  var formattedDate = currentDate.toLocaleDateString(undefined, options);
+  date.value = formattedDate; */
+
+
+  
+  
+  function deposit_money() {
+	  var loanid = document.getElementById("loanid").value;
+	  var emi = document.getElementById("emi").value;
+	  var interest = document.getElementById("interest").value;
+	  var total = document.getElementById("total").value;
+	  var amount = document.getElementById("amount").value;
+	  var complete = document.getElementById("complete").value;
+	  var date=document.getElementById("date").value;
+	  var installment_no=document.getElementById("remainMonths").value;
+	  var requestData = {
+			  Loanid: loanid,
+			  EMI: emi,
+			  Interset: interest,
+			  Total: total,
+			  Amount: amount,
+			  Complete: complete,
+			  Date:date,
+			  installment_no:installment_no
+	  };
+	  // Send the AJAX request
+	  $.ajax({
+	    url: 'loanrepaymenturl',
+	    type: 'POST',
+	    data: requestData,
+	    success: function(response) {
+   	  $('#successMessage').text(response).fadeIn();
+
+            setTimeout(function() {
+                $('#successMessage').fadeOut();
+            }, 3000);
+
+            form.trigger('reset'); // Optional: Reset the form after successful submission
+	      console.log('Third server request success:', response);
+	    },
+	    error: function(jqXHR, textStatus, errorThrown) {
+	      // Handle the error
+	      console.error('Third server request error:', textStatus, errorThrown);
+	    }
+	  });
+  }
+
+</script>
+
+</body>
+</html>
