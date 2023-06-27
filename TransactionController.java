@@ -72,7 +72,7 @@ public class TransactionController {
 		return "sub-money-deposit"; // Return the name of the view to be rendered
 	}
 
-	// sub_money_deposit
+	// sub-money-deposit
 	// Process money deposit
 	@RequestMapping(value = "/moneyDepositurl")
 	public ResponseEntity<String> getDepositMoney(@Validated transactioninfo tarn, Model model,
@@ -89,7 +89,7 @@ public class TransactionController {
 	}
 
 	// =================================================================================
-	// money_withdrawl
+	// money-withdrawl
 	// Get account details for money withdrawal
 	@RequestMapping(value = "/getaccountdetailsmoneyWithdrawl", method = RequestMethod.POST)
 	public String getAccountDetailsForMoneyWithdrawl(@RequestParam("accountNumber") int Acnt_id, Model model) {
