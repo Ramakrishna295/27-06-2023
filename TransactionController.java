@@ -37,33 +37,33 @@ public class TransactionController {
 	@Autowired
 	private CustomerSetter s;
 
+	// Mapping for money deposit form
 	@RequestMapping(value = "/moneydeposit", method = RequestMethod.GET)
 	public String moneyDepositeForm(Model model) {
 		return "Money-Deposit";
 	}
 
+	// Mapping for loan repayment form
 	@RequestMapping(value = "/loanrepay", method = RequestMethod.GET)
 	public String loanRepaymentForm(Model model) {
 		return "Loan-Repayment";
 	}
 
-	@RequestMapping(value = "/interest", method = RequestMethod.GET)
-	public String interestDepositForm(Model model) {
-		return "Interest-Deposit";
-	}
-
+	// Mapping for money withdrawal form
 	@RequestMapping(value = "/withdrawl", method = RequestMethod.GET)
 	public String moneyWithdrawlForm(Model model) {
 		return "money-withdrawl-form";
 	}
 
+	// Mapping for loan withdrawal form
 	@RequestMapping(value = "/lowid", method = RequestMethod.GET)
 	public String loWithdrawlForm(Model model) {
 		return "loan-withdrawl-form";
 	}
+	
 	// =================================================================================
-
 	// money_deposit
+	// Get account details for money deposit
 	@RequestMapping(value = "/getaccountdetails", method = RequestMethod.POST)
 	public String getAccountDetails(@RequestParam("accountNumber") int Acnt_id, Model model) {
 		Account account = ti.getAccountById(Acnt_id); // Get the account details for the provided account number
@@ -73,6 +73,7 @@ public class TransactionController {
 	}
 
 	// sub_money_deposit
+	// Process money deposit
 	@RequestMapping(value = "/moneyDepositurl")
 	public ResponseEntity<String> getDepositMoney(@Validated transactioninfo tarn, Model model,
 			HttpServletRequest request) {
@@ -87,7 +88,9 @@ public class TransactionController {
 		return ResponseEntity.ok("deposit sucessfully"); // Return a response with a success message
 	}
 
+	// =================================================================================
 	// money_withdrawl
+	// Get account details for money withdrawal
 	@RequestMapping(value = "/getaccountdetailsmoneyWithdrawl", method = RequestMethod.POST)
 	public String getAccountDetailsForMoneyWithdrawl(@RequestParam("accountNumber") int Acnt_id, Model model) {
 		Account account = ti.getAccountById(Acnt_id); // Get the account details for the provided account number
@@ -97,6 +100,7 @@ public class TransactionController {
 	}
 
 	// sub_money_withdrawl
+	// Process money withdrawal
 	@RequestMapping(value = "/moneywithdrawlurl")
 	public ResponseEntity<String> getMoneyWithdrawlAmount(@Validated transactioninfo tarn, Model model,
 			HttpServletRequest request) {
@@ -113,10 +117,8 @@ public class TransactionController {
 	}
 
 	// =====================================================================================================================
-
 	// loan_withdrawl
-
-	// loan_withdrawl
+	// Get loan account details for loan withdrawal
 	@RequestMapping(value = "/getloandetails", method = RequestMethod.POST)
 	public String getLoandetails(@RequestParam("accountNumber") long loan_id, Model model) {
 		long acnt_id = loan_id; // Assign the loan_id to the acnt_id variable
@@ -137,8 +139,8 @@ public class TransactionController {
 		}
 	}
 
-	// // sub_loan_withdrawl
-	//
+	// sub_loan_withdrawl
+	// Process loan withdrawal
 	@RequestMapping(value = "/loanwithdrawlurl", method = RequestMethod.POST)
 	public ResponseEntity<String> getLoanmoneyWithdrawlAmount(@Validated transactioninfo tarn, Model model,
 			HttpServletRequest request) {
@@ -156,6 +158,9 @@ public class TransactionController {
 		return ResponseEntity.ok("Loan withdrawl Successfully"); // Return a ResponseEntity with a success message
 	}
 
+	// =====================================================================================================================
+	// loan_repayment
+	// Get loan account details for loan repayment
 	@RequestMapping(value = "/getloanrepaytdetails", method = RequestMethod.POST)
 	public String getloanrepaytdetails(@RequestParam("accountNumber") long loan_id, Model model) {
 
@@ -171,6 +176,7 @@ public class TransactionController {
 	}
 
 	// sub_loan_repayment
+	// Process loan repayment
 	@RequestMapping(value = "/loanrepaymenturl")
 	public ResponseEntity<String> getloanrepaymenAmount(@Validated tempRepayment tarn, Model model,
 			HttpServletRequest request) {
