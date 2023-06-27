@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+    <title>Loan Withdrawal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding-bottom : 50px;
+        }
+
+        .form-container1 {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            padding-botttom : 100px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .tat {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            background-color: #003366;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #successMessage {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #003366;
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="loan-withdrawal-form" class="form-container1">
+      
+            <div class="jumbotron">
+                <from>
+                    <h1>Loan Withdrawal</h1>
+                    <div class="form-group">
+                        <label for="loanid">Loan ID:</label>
+                        <input type="number" class="form-control" id="loanid" placeholder="Enter loan ID" name="loanid" th:value="${account.getLoanId()}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="accountHolder">Account Holder:</label>
+                        <input type="text" class="form-control" id="accountHolder" name="accountHolder" th:value="${customerss.getTitle()}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="loanType">Loan Type:</label>
+                        <input type="text" class="form-control" id="loanType" name="loanType"  th:value="${account.getLoanType()}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date:</label>
+                        <input type="date" onclick="getDate()" class="form-control" id="date" name="date" >
+                    </div>
+                    <div class="form-group">
+                        <label for="loanamount">Loan Amount:</label>
+                        <input type="number" class="form-control" id="loanamount" name="loanamount" th:value="${account.getLoanAmount()}" readonly>
+                    </div>
+                    <button type="submit" class="tat" onclick="return validateForm()" >Withdraw</button>
+                      <div id="successMessage"></div>
+                    
+                </from>
+            </div>
+        
+    </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+function getDate(){
+	var today = new Date();
+	document.getElementById("date").value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+
+}
+
+function validateForm() {
+	  let x = document.getElementById("date").value;
+	  if (x == "") {
+	    alert("date must be filled");
+	    return false;
+	  }
+	  else
+		  {
+		  withdraw_money() 
+		  }
+	}
+	
+  function withdraw_money() {
+	  var accountNumber = document.getElementById("loanid").value;
+	  var loanamount = document.getElementById("loanamount").value;
+      var date = document.getElementById("date").value;
+
+	  // Send the AJAX request
+	  $.ajax({
+	    url: 'loanwithdrawlurl',
+	    type: 'POST',
+	    data: {
+	    	AccountNumber:accountNumber,
+	    	Amount:loanamount,
+	        Date:date
+	    },
+	    success: function(response) {
+	    	  $('#successMessage').text(response).fadeIn();
+
+              setTimeout(function() {
+                  $('#successMessage').fadeOut();
+              }, 3000);
+
+              form.trigger('reset'); // Optional: Reset the form after successful submission
+	      console.log('Third server request success:', response);
+	    },
+	    error: function(jqXHR, textStatus, errorThrown) {
+	      // Handle the error
+	      console.error('Third server request error:', textStatus, errorThrown);
+	    }
+	  });
+      
+    }
+  
+</script>
+
+</html>
